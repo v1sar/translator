@@ -29,7 +29,7 @@ public class TranslatorActivity extends AppCompatActivity implements ITranslator
         loadingBar = findViewById(R.id.loading_bar);
         translateBtn = findViewById(R.id.translate_btn);
         translatedText = findViewById(R.id.translated_text);
-        translateBtn.setOnClickListener(e -> translatorPresenter.doTranslate());
+        translateBtn.setOnClickListener(e -> translatorPresenter.doTranslate("123"));
     }
 
     @Override

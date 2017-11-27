@@ -9,5 +9,5 @@ import ru.dmitriy.translator.ui.views.ITranslatorView;
 public interface ITranslatorPresenter {
     void bindView(ITranslatorView translatorView);
     void unbindView();
-    void doTranslate();
+    void doTranslate(String wordToTranslate);
 }
