@@ -3,22 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/text_to_translate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_text_here"/>
+
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/translate_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/transalte_btn" />
+        android:text="@string/transalte_btn"
+        android:layout_below="@id/text_to_translate"/>
 
     <ProgressBar
         android:id="@+id/loading_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:layout_below="@id/translate_btn"/>
+        android:layout_toRightOf="@id/translate_btn"
+        android:layout_below="@id/text_to_translate"/>
 
     <TextView
         android:id="@+id/translated_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loading_bar"/>
+        android:layout_below="@id/translate_btn"/>
 </RelativeLayout>

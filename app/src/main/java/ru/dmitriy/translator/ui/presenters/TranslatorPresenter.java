@@ -34,7 +34,6 @@ public class TranslatorPresenter implements ITranslatorPresenter {
         mTranslatorView.showLoading();
         mTranslatorInteractor.getTranslate(wordToTranslate)
                 .subscribeOn(Schedulers.io())
-                .delay(2, TimeUnit.SECONDS, Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccessResult, this::handleBadResult);
     }

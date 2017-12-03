@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.dmitriy.translator.MyApplication;
 import ru.dmitriy.translator.R;
 import ru.dmitriy.translator.dagger.translator.TranslatorModule;
@@ -23,19 +27,20 @@ public class TranslatorActivity extends AppCompatActivity implements ITranslator
     @Inject
     ITranslatorPresenter translatorPresenter;
 
-    ProgressBar loadingBar;
-    AppCompatButton translateBtn;
-    TextView translatedText;
+    @BindView(R.id.loading_bar) ProgressBar loadingBar;
+    @BindView(R.id.translated_text) TextView translatedText;
+    @BindView(R.id.text_to_translate) EditText textToTranslate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.translator_activity);
-        loadingBar = findViewById(R.id.loading_bar);
-        translateBtn = findViewById(R.id.translate_btn);
-        translatedText = findViewById(R.id.translated_text);
-        translateBtn.setOnClickListener(e -> translatorPresenter.doTranslate("123"));
         MyApplication.getAppComponent().plus(new TranslatorModule()).inject(this);
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.translate_btn) void makeTranslate() {
+        translatorPresenter.doTranslate(textToTranslate.getText().toString());
     }
 
     @Override
