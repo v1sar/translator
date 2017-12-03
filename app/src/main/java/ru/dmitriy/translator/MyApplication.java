@@ -1,7 +1,10 @@
 package ru.dmitriy.translator;
 
 import android.app.Application;
-import android.content.Context;
+import android.support.annotation.NonNull;
+
+import ru.dmitriy.translator.dagger.application.AppComponent;
+import ru.dmitriy.translator.dagger.application.DaggerAppComponent;
 
 /**
  * Created by Dmitriy on 26.11.2017.
@@ -9,12 +12,17 @@ import android.content.Context;
 
 public class MyApplication extends Application {
 
-    private Context mContext;
+    private static AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
+        appComponent = DaggerAppComponent.create();
+    }
+
+    @NonNull
+    public static AppComponent getAppComponent() {
+        return appComponent;
     }
 
 }

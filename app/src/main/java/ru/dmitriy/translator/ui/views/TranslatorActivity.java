@@ -7,9 +7,12 @@ import android.support.v7.widget.AppCompatButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
+import ru.dmitriy.translator.MyApplication;
 import ru.dmitriy.translator.R;
+import ru.dmitriy.translator.dagger.translator.TranslatorModule;
 import ru.dmitriy.translator.ui.presenters.ITranslatorPresenter;
-import ru.dmitriy.translator.ui.presenters.TranslatorPresenter;
 
 /**
  * Created by Dmitriy on 26.11.2017.
@@ -17,7 +20,9 @@ import ru.dmitriy.translator.ui.presenters.TranslatorPresenter;
 
 public class TranslatorActivity extends AppCompatActivity implements ITranslatorView {
 
+    @Inject
     ITranslatorPresenter translatorPresenter;
+
     ProgressBar loadingBar;
     AppCompatButton translateBtn;
     TextView translatedText;
@@ -30,12 +35,12 @@ public class TranslatorActivity extends AppCompatActivity implements ITranslator
         translateBtn = findViewById(R.id.translate_btn);
         translatedText = findViewById(R.id.translated_text);
         translateBtn.setOnClickListener(e -> translatorPresenter.doTranslate("123"));
+        MyApplication.getAppComponent().plus(new TranslatorModule()).inject(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        translatorPresenter = new TranslatorPresenter();
         translatorPresenter.bindView(this);
     }
 

@@ -5,8 +5,6 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.dmitriy.translator.business.translator.ITranslatorInteractor;
-import ru.dmitriy.translator.business.translator.TranslatorInteractor;
-import ru.dmitriy.translator.data.repositories.translator.TranslatorRepository;
 import ru.dmitriy.translator.ui.views.ITranslatorView;
 
 /**
@@ -18,8 +16,8 @@ public class TranslatorPresenter implements ITranslatorPresenter {
     private ITranslatorView mTranslatorView;
     private ITranslatorInteractor mTranslatorInteractor;
 
-    public TranslatorPresenter() {
-        mTranslatorInteractor = new TranslatorInteractor(new TranslatorRepository());
+    public TranslatorPresenter(ITranslatorInteractor iTranslatorInteractor) {
+        mTranslatorInteractor = iTranslatorInteractor;
     }
 
     @Override
