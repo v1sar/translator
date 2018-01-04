@@ -17,7 +17,8 @@ public class TranslatorInteractor implements ITranslatorInteractor {
 
     @Override
     public Observable<String> getTranslate(String wordToTranslate) {
-        return mTranslatorRepository.getNetworkTranslate(wordToTranslate);
+        return mTranslatorRepository.getDbTranslate(wordToTranslate)
+                .onErrorResumeNext(mTranslatorRepository.getNetworkTranslate(wordToTranslate));
     }
 
 }

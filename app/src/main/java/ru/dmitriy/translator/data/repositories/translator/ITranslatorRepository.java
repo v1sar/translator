@@ -8,6 +8,9 @@ import io.reactivex.Observable;
 
 public interface ITranslatorRepository {
 
+    Observable<String> getDbTranslate(String wordToTranslate);
+
     Observable<String> getNetworkTranslate(String wordToTranslate);
 
+    void saveTranslation(String wordToTranslate, String direction, String translation);
 }

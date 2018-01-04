@@ -1,7 +1,5 @@
 package ru.dmitriy.translator.ui.presenters;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.dmitriy.translator.business.translator.ITranslatorInteractor;

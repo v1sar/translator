@@ -2,4 +2,5 @@
     <string name="app_name">translator</string>
     <string name="transalte_btn">Translate</string>
     <string name="input_text_here">Input your text here</string>
+    <string name="check_internet_connection">CHECK INTERNET CONNECTION</string>
 </resources>
