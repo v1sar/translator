@@ -5,6 +5,9 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 
@@ -21,7 +24,7 @@ public interface TranslatedWordDao {
     void delete(TranslatedWord translatedWord);
 
     @Query("SELECT * FROM translatedword")
-    Single<TranslatedWord> getAllTranslatedWords();
+    Flowable<List<TranslatedWord>> getAllTranslatedWords();
 
     @Query("SELECT * FROM translatedword WHERE word LIKE :w")
     Single<TranslatedWord> getWordTranslation(String w);

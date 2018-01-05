@@ -3,4 +3,6 @@
     <string name="transalte_btn">Translate</string>
     <string name="input_text_here">Input your text here</string>
     <string name="check_internet_connection">CHECK INTERNET CONNECTION</string>
+    <string name="history_fragment_text">History</string>
+    <string name="translator_fragment_text">Translate</string>
 </resources>

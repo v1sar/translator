@@ -35,4 +35,25 @@ public class TranslatedWord {
     public String getTranslated() {
         return translated;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TranslatedWord that = (TranslatedWord) o;
+
+        if (!word.equals(that.word)) return false;
+        if (direction != null ? !direction.equals(that.direction) : that.direction != null)
+            return false;
+        return translated != null ? translated.equals(that.translated) : that.translated == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = word.hashCode();
+        result = 31 * result + (direction != null ? direction.hashCode() : 0);
+        result = 31 * result + (translated != null ? translated.hashCode() : 0);
+        return result;
+    }
 }
