@@ -21,6 +21,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.WordView
 
     private List<TranslatedWord> wordsList;
 
+    public void setWordsList(List<TranslatedWord> wordsList) {
+        this.wordsList = wordsList;
+    }
+
     public HistoryAdapter(List<TranslatedWord> wordsList) {
         this.wordsList = wordsList;
     }

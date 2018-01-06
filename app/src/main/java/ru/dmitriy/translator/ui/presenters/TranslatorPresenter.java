@@ -1,5 +1,8 @@
 package ru.dmitriy.translator.ui.presenters;
 
+import com.arellomobile.mvp.InjectViewState;
+import com.arellomobile.mvp.MvpPresenter;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.dmitriy.translator.business.translator.ITranslatorInteractor;
@@ -9,27 +12,17 @@ import ru.dmitriy.translator.ui.views.ITranslatorView;
  * Created by Dmitriy on 26.11.2017.
  */
 
-public class TranslatorPresenter implements ITranslatorPresenter {
+@InjectViewState
+public class TranslatorPresenter extends MvpPresenter<ITranslatorView> implements ITranslatorPresenter {
 
-    private ITranslatorView mTranslatorView;
     private ITranslatorInteractor mTranslatorInteractor;
 
     public TranslatorPresenter(ITranslatorInteractor iTranslatorInteractor) {
         mTranslatorInteractor = iTranslatorInteractor;
     }
 
-    @Override
-    public void bindView(ITranslatorView translatorView) {
-        this.mTranslatorView = translatorView;
-    }
-
-    @Override
-    public void unbindView() {
-        mTranslatorView = null;
-    }
-
     public void doTranslate(String wordToTranslate) {
-        mTranslatorView.showLoading();
+        getViewState().showLoading();
         mTranslatorInteractor.getTranslate(wordToTranslate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -37,12 +30,12 @@ public class TranslatorPresenter implements ITranslatorPresenter {
     }
 
     private void handleSuccessResult(String translatedWord) {
-        mTranslatorView.stopLoading();
-        mTranslatorView.onTranslateDone(translatedWord);
+        getViewState().stopLoading();
+        getViewState().onTranslateDone(translatedWord);
     }
 
     private void handleBadResult(Throwable throwable) {
-        mTranslatorView.stopLoading();
-        mTranslatorView.onTranslateDone(throwable.getLocalizedMessage());
+        getViewState().stopLoading();
+        getViewState().onTranslateDone(throwable.getLocalizedMessage());
     }
 }

@@ -3,6 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/history_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_hist"
         android:scrollbars="vertical"

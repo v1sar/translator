@@ -19,7 +19,7 @@ public class TranslatorModule {
 
     @Provides
     @TranslatorScope
-    ITranslatorPresenter provideITranslatorPresenter(ITranslatorInteractor iTranslatorInteractor) {
+    TranslatorPresenter provideITranslatorPresenter(ITranslatorInteractor iTranslatorInteractor) {
         return new TranslatorPresenter(iTranslatorInteractor);
     }
 

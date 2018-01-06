@@ -4,11 +4,15 @@ import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,9 @@ public class HistoryFragment extends Fragment{
     @BindView(R.id.recycler_view_hist)
     RecyclerView recyclerView;
 
+    @BindView(R.id.history_search)
+    EditText historySearch;
+
     private LinearLayoutManager  mLayoutManager;
     private HistoryAdapter historyAdapter;
     private List<TranslatedWord> wordsList = new ArrayList<>();
@@ -66,8 +73,42 @@ public class HistoryFragment extends Fragment{
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                mLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(historyAdapter);
         updateTranslations();
+        setTextListener();
+    }
+
+    private void setTextListener() {
+        historySearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                charSequence = charSequence.toString().toLowerCase();
+
+                final List<TranslatedWord> filteredList = new ArrayList<>();
+
+                for (int j = 0; j < wordsList.size(); j++) {
+                    final String text = wordsList.get(j).getWord().toLowerCase();
+                    if (text.contains(charSequence)) {
+                        filteredList.add(wordsList.get(j));
+                    }
+                }
+                historyAdapter.setWordsList(filteredList);
+                historyAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     void updateTranslations(){
@@ -83,10 +124,12 @@ public class HistoryFragment extends Fragment{
                             if (!wordsList.contains(v)) {
                                 wordsList.add(v);
                                 System.out.println(v.getWord());
+                                historyAdapter.setWordsList(wordsList);
                                 historyAdapter.notifyItemChanged(wordsList.size());
                             }
                         },
                         e -> System.out.println("error: " + e),
                         () -> System.out.println("THATS ALL"));
     }
+
 }

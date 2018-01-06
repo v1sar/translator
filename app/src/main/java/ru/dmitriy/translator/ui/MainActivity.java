@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        setupViewPager(viewPager);
+
+       setupViewPager(viewPager);
     }
 
 
